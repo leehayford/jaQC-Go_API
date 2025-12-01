@@ -1,0 +1,118 @@
+2025/11/27 08:17:46.344599 log.go:39: [Info] LOGGING CONFIGURED
+2025/11/27 08:17:46.345130 main.go:25: [Info] 
+
+
+JaQC SERVICE STARTING...
+
+
+2025/11/27 08:17:46.345130 api.go:50: [Info] ConfirmAPIDirectories( ) : data
+2025/11/27 08:17:46.345130 api.go:56: [Info] ConfirmAPIDirectories( ) : data/archive
+2025/11/27 08:17:46.345638 api.go:62: [Info] ConfirmAPIDirectories( ) : data/device_files
+2025/11/27 08:17:46.345668 api.go:68: [Info] ConfirmAPIDirectories( ) : data/dataset_databases
+2025/11/27 08:17:46.345668 api.go:74: [Info] ConfirmAPIDirectories( ) : data/dataset_bin_files
+2025/11/27 08:17:46.345668 api.go:39: [Info] FILE SYSTEM CONFIGURED
+2025/11/27 08:17:46.345668 api.go:203: [Info] CORS CONFIGURED
+2025/11/27 08:17:46.345668 api.go:216: [Info] JWT CONFIGURED
+2025/11/27 08:17:46.346203 api.go:227: [Info] EMAIL CONFIGURED
+2025/11/27 08:17:46.346203 main.go:70: [Info] **************************** main -> START DEBUG CODE
+
+
+2025/11/27 08:17:46.346203 main.go:86: [Info] **************************** main -> END DEBUG CODE
+
+
+2025/11/27 08:19:32.873636 log.go:39: [Info] LOGGING CONFIGURED
+2025/11/27 08:19:32.873636 main.go:25: [Info] 
+
+
+JaQC SERVICE STARTING...
+
+
+2025/11/27 08:19:32.873636 api.go:50: [Info] ConfirmAPIDirectories( ) : data
+2025/11/27 08:19:32.874160 api.go:56: [Info] ConfirmAPIDirectories( ) : data/archive
+2025/11/27 08:19:32.874160 api.go:62: [Info] ConfirmAPIDirectories( ) : data/device_files
+2025/11/27 08:19:32.874160 api.go:68: [Info] ConfirmAPIDirectories( ) : data/dataset_databases
+2025/11/27 08:19:32.874160 api.go:74: [Info] ConfirmAPIDirectories( ) : data/dataset_bin_files
+2025/11/27 08:19:32.874160 api.go:39: [Info] FILE SYSTEM CONFIGURED
+2025/11/27 08:19:32.874160 api.go:203: [Info] CORS CONFIGURED
+2025/11/27 08:19:32.874160 api.go:216: [Info] JWT CONFIGURED
+2025/11/27 08:19:32.874160 api.go:227: [Info] EMAIL CONFIGURED
+2025/11/27 08:19:32.874160 main.go:70: [Info] **************************** main -> START DEBUG CODE
+
+
+2025/11/27 08:19:32.874683 main.go:86: [Info] **************************** main -> END DEBUG CODE
+
+
+08:19:59 | 404 |            0s | 127.0.0.1 | GET | / | Cannot GET /
+08:19:59 | 404 |            0s | 127.0.0.1 | GET | /favicon.ico | Cannot GET /favicon.ico
+08:20:10 | 200 |            0s | 127.0.0.1 | GET | /ping | -
+08:20:30 | 200 |     52.8817ms | 127.0.0.1 | GET | /api/jaqc/update_web | -
+08:20:50 | 200 |            0s | 127.0.0.1 | GET | /ping | -
+2025/11/27 08:44:10.278687 log.go:39: [Info] LOGGING CONFIGURED
+2025/11/27 08:44:10.278687 main.go:25: [Info] 
+
+
+JaQC SERVICE STARTING...
+
+
+2025/11/27 08:44:19.503525 log.go:39: [Info] LOGGING CONFIGURED
+2025/11/27 08:44:19.503525 main.go:25: [Info] 
+
+
+JaQC SERVICE STARTING...
+
+
+2025/11/27 08:47:17.185419 log.go:39: [Info] LOGGING CONFIGURED
+2025/11/27 08:47:17.185419 main.go:25: [Info] 
+
+
+JaQC SERVICE STARTING...
+
+
+2025/11/27 08:47:17.185419 api.go:50: [Info] ConfirmAPIDirectories( ) : data
+2025/11/27 08:47:17.185925 api.go:56: [Info] ConfirmAPIDirectories( ) : data/archive
+2025/11/27 08:47:17.185943 api.go:62: [Info] ConfirmAPIDirectories( ) : data/device_files
+2025/11/27 08:47:17.185943 api.go:68: [Info] ConfirmAPIDirectories( ) : data/dataset_databases
+2025/11/27 08:47:17.185943 api.go:74: [Info] ConfirmAPIDirectories( ) : data/dataset_bin_files
+2025/11/27 08:47:17.185943 api.go:39: [Info] FILE SYSTEM CONFIGURED
+2025/11/27 08:47:17.185943 api.go:203: [Info] CORS CONFIGURED
+2025/11/27 08:47:17.185943 api.go:216: [Info] JWT CONFIGURED
+2025/11/27 08:47:17.185943 api.go:227: [Info] EMAIL CONFIGURED
+2025/11/27 08:47:17.185943 main.go:70: [Info] **************************** main -> START DEBUG CODE
+
+
+2025/11/27 08:47:17.185943 main.go:86: [Info] **************************** main -> END DEBUG CODE
+
+
+08:48:55 | 200 |            0s | 10.0.0.233 | GET | /ping | -
+08:48:55 | 404 |            0s | 10.0.0.233 | GET | /favicon.ico | Cannot GET /favicon.ico
+08:49:29 | 200 |            0s | 192.168.56.1 | GET | /ping | -
+08:49:29 | 404 |            0s | 192.168.56.1 | GET | /favicon.ico | Cannot GET /favicon.ico
+08:49:41 | 404 |            0s | 192.168.56.1 | GET | /index.html | Cannot GET /index.html
+08:50:02 | 200 |     52.8347ms | 192.168.56.1 | GET | /api/jaqc/update_web/index.html | -
+08:50:13 | 304 |            0s | 192.168.56.1 | GET | /api/jaqc/update_web/index.html | -
+08:50:23 | 200 |            0s | 192.168.56.1 | GET | /ping | -
+08:50:25 | 200 |            0s | 192.168.56.1 | GET | /ping | -
+08:53:05 | 200 |            0s | 10.0.0.233 | GET | /ping | -
+2025/11/27 08:53:19.356012 log.go:39: [Info] LOGGING CONFIGURED
+2025/11/27 08:53:19.356012 main.go:25: [Info] 
+
+
+JaQC SERVICE STARTING...
+
+
+2025/11/27 08:53:19.356535 api.go:50: [Info] ConfirmAPIDirectories( ) : data
+2025/11/27 08:53:19.356535 api.go:56: [Info] ConfirmAPIDirectories( ) : data/archive
+2025/11/27 08:53:19.356535 api.go:62: [Info] ConfirmAPIDirectories( ) : data/device_files
+2025/11/27 08:53:19.356535 api.go:68: [Info] ConfirmAPIDirectories( ) : data/dataset_databases
+2025/11/27 08:53:19.356535 api.go:74: [Info] ConfirmAPIDirectories( ) : data/dataset_bin_files
+2025/11/27 08:53:19.356535 api.go:39: [Info] FILE SYSTEM CONFIGURED
+2025/11/27 08:53:19.356535 api.go:203: [Info] CORS CONFIGURED
+2025/11/27 08:53:19.356535 api.go:216: [Info] JWT CONFIGURED
+2025/11/27 08:53:19.356535 api.go:227: [Info] EMAIL CONFIGURED
+2025/11/27 08:53:19.357061 main.go:70: [Info] **************************** main -> START DEBUG CODE
+
+
+2025/11/27 08:53:19.357061 main.go:86: [Info] **************************** main -> END DEBUG CODE
+
+
+08:53:27 | 200 |            0s | 10.0.0.233 | GET | /ping | -
