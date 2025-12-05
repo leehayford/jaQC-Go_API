@@ -4,12 +4,96 @@ import (
 	"flag"
 	// "fmt"
 
+	/* /api/jaqc/update_web imports **********/
+    "crypto/sha256"
+    "encoding/hex"
+    "io"
+    "os"
+    "path/filepath"
+	/* END /api/jaqc/update_web imports ******/
+
+
 	"github.com/gofiber/fiber/v2" // go get github.com/gofiber/fiber/v2
 	"github.com/gofiber/fiber/v2/log"
 
 	"jaQC-Go-API/utils"
 	"jaQC-Go-API/api"
 )
+
+
+/* /api/jaqc/update_web stuff **************/
+type fileDesc struct {
+    Name string // e.g., "index.html"
+    Path string // e.g., "/storage/index.html"
+}
+
+func hashFileHex(fullPath string) (hexStr string, size int64, err error) {
+    f, err := os.Open(fullPath)
+    if err != nil {
+        return "", 0, err
+    }
+    defer f.Close()
+
+    h := sha256.New()
+    n, err := io.Copy(h, f)
+    if err != nil {
+        return "", 0, err
+    }
+    sum := h.Sum(nil)
+    return hex.EncodeToString(sum), n, nil
+}
+
+func RegisterManifestRoute(app *fiber.App) {
+    // Configure your base URL and server-side storage root
+    const baseURL = "http://192.168.1.165:8013/api/jaqc/update_web"
+    const webroot = "./jaqcweb" // where the source files are on your server
+
+    // List the assets you want to publish
+    assets := []fileDesc{
+        {Name: "index.html", Path: "/storage/index.html"},
+        {Name: "app.css",    Path: "/storage/app.css"},
+        {Name: "app.js",     Path: "/storage/app.js"},
+        {Name: "favicon.svg",Path: "/storage/favicon.svg"},
+    }
+
+    app.Get("/api/jaqc/manifest", func(c *fiber.Ctx) error {
+        type item struct {
+            URL    string `json:"url"`
+            Path   string `json:"path"`
+            SHA256 string `json:"sha256"`
+            Size   int64  `json:"size,omitempty"`
+        }
+        out := struct {
+            Files []item `json:"files"`
+        }{
+            Files: make([]item, 0, len(assets)),
+        }
+
+        for _, a := range assets {
+            fullPath := filepath.Join(webroot, a.Name)
+            hexStr, size, err := hashFileHex(fullPath)
+            if err != nil {
+                // Fail fast so the device knows something is wrong
+                return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+                    "error":   "hashing failed",
+                    "file":    a.Name,
+                    "details": err.Error(),
+                })
+            }
+
+            out.Files = append(out.Files, item{
+                URL:    baseURL + "/" + a.Name,
+                Path:   a.Path,
+                SHA256: hexStr, // 64 hex chars
+                Size:   size,   // optional
+            })
+        }
+
+        // You may also add manifest-level metadata (version, timestamp)
+        return c.JSON(out)
+    })
+}
+/* END /api/jaqc/update_web stuff **********/
 
 func main() {
 	
@@ -73,15 +157,79 @@ func main() {
 		log.Info("\n\n\nJaQC CLEANING...\n\n\n")
 	}
 
-	
+
 	app.Get("/ping", func(c *fiber.Ctx) error {
         return c.SendString("pong")
     })
 
-	
-	// update device html, css, js
-	app.Static("/api/jaqc/update_web", "./jaqcweb")
 
+    // Static assets (place files in ./jaqcweb/)
+	app.Static("/api/jaqc/update_web", "./jaqcweb") // serves index.html, app.css, app.js, favicon.svg
+	
+    // Manifest
+	/* OLD /api/jaqc/manifest **********************/
+    // app.Get("/api/jaqc/manifest", func(c *fiber.Ctx) error {
+    //     return c.JSON(fiber.Map{
+    //         "files": []fiber.Map{
+    //             {"url": "http://192.168.1.165:8013/api/jaqc/update_web/index.html", "path": "/storage/index.html", "sha256": ""},
+    //             {"url": "http://192.168.1.165:8013/api/jaqc/update_web/app.css",    "path": "/storage/app.css",    "sha256": ""},
+    //             {"url": "http://192.168.1.165:8013/api/jaqc/update_web/app.js",     "path": "/storage/app.js",     "sha256": ""},
+    //             {"url": "http://192.168.1.165:8013/api/jaqc/update_web/favicon.svg","path": "/storage/favicon.svg","sha256": ""},
+    //         },
+    //     })
+    // })
+	/* END OLD /api/jaqc/manifest ******************/
+
+	// Configure our base URL and server-side storage root
+    const baseURL = "http://192.168.1.165:8013/api/jaqc/update_web" // TODO: Construct this from other constants
+    const webroot = "./jaqcweb" // where the source files are on your server
+
+    // List the assets we want to publish
+    assets := []fileDesc{
+        {Name: "index.html", Path: "/storage/index.html"},
+        {Name: "app.css",    Path: "/storage/app.css"},
+        {Name: "app.js",     Path: "/storage/app.js"},
+        {Name: "favicon.svg",Path: "/storage/favicon.svg"},
+    }
+	
+	app.Get("/api/jaqc/manifest", func(c *fiber.Ctx) error {
+        type item struct {
+            URL    string `json:"url"`
+            Path   string `json:"path"`
+            SHA256 string `json:"sha256"`
+            Size   int64  `json:"size,omitempty"`
+        }
+
+        out := struct { 
+			Files []item `json:"files"`
+        }{ 	// TODO: ASK about this syntax
+			Files: make([]item, 0, len(assets)),
+        }
+
+        for _, a := range assets {
+            fullPath := filepath.Join(webroot, a.Name)
+            hexStr, size, err := hashFileHex(fullPath)
+            if err != nil {
+                // Fail fast so the device knows something is wrong
+                return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+                    "error":   "hashing failed",
+                    "file":    a.Name,
+                    "details": err.Error(),
+                })
+            }
+			log.Info(hexStr)
+
+            out.Files = append(out.Files, item{
+                URL:    baseURL + "/" + a.Name,
+                Path:   a.Path,
+                SHA256: hexStr, // 64 hex chars
+                Size:   size,   // optional
+            })
+        }
+
+        // TODO: possibly add manifest-level metadata (version, timestamp)
+        return c.JSON(out)
+    })
 
 	log.Info("**************************** main -> END DEBUG CODE\n\n\n")
 	/* END DEBUG ONLY *************************************************************************/

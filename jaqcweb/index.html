@@ -1,9 +1,108 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Test Page</title>
+  <meta charset="utf-8" />
+  <title>JaQC • Device Administration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="app.css">
+
+  <!-- Script -->
+  <script src="app.js" defer></script>
 </head>
+
 <body>
-    <h1>Success 20251203 131700</h1>
+  <header class="site-header">
+    <div class="brand">
+        <img src="favicon.svg" 
+            alt="Quality Control Jack, a small French pirate hell-bent on good quality control practices">
+        <h1 class="brand-title">JaQC</h1>
+    </div>
+    <div class="actions">
+      <button id="btnEdit" class="btn btn-accent">Edit</button>
+      <button id="btnSave" class="btn btn-primary" hidden>Save</button>
+      <button id="btnCancel" class="btn btn-muted" hidden>Cancel</button>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <span class="brand-sub">Device Administration</span>
+
+    <!-- Device Info (display-only) -->
+    <section class="card">
+      <h2 class="card-title">Device Info</h2>
+      <div class="grid">
+        <label class="field">
+          <span class="label">Serial#</span>
+          <input id="serial" class="input" type="text" value="JAQC000000" data-editable disabled />
+        </label>
+
+        <label class="field">
+          <span class="label">Hardware Class</span>
+          <input id="hwClass" class="input" type="text" value="000" data-editable disabled />
+        </label>
+
+        <label class="field">
+          <span class="label">Hardware Version</span>
+          <input id="hwVersion" class="input" type="text" value="0.0.0" data-editable disabled />
+        </label>
+
+        <label class="field">
+          <span class="label">Firmware Version</span>
+          <input id="fwVersion" class="input" type="text" value="0000" disabled />
+        </label>
+      </div>
+    </section>
+
+    <!-- Network & MQTT (editable only when in edit mode) -->
+    <section class="card">
+      <h2 class="card-title">Network & MQTT</h2>
+      <div class="grid">
+
+        <label class="field">
+          <span class="label">Wi‑Fi SSID <span class="req">*</span></span>
+          <input id="wifiSsid" class="input" type="text" placeholder="Enter SSID" data-editable disabled />
+        </label>
+
+        <label class="field">
+          <span class="label">Wi‑Fi Password <span class="req">*</span></span>
+          <input id="wifiPass" class="input" type="password" placeholder="Enter Password" data-editable disabled />
+        </label>
+
+        <label class="field">
+          <span class="label">MQTT URI <span class="req">*</span></span>
+          <input id="mqttUri" class="input" type="text" placeholder="mqtts://broker.example:8883" data-editable disabled />
+        </label>
+
+        <label class="field">
+          <span class="label">MQTT User <span class="req">*</span></span>
+          <input id="mqttUser" class="input" type="text" placeholder="username" data-editable disabled />
+        </label>
+
+        <label class="field">
+          <span class="label">MQTT Password <span class="req">*</span></span>
+          <input id="mqttPass" class="input" type="password" placeholder="password" data-editable disabled />
+        </label>
+
+      </div>
+
+      <div class="note">
+        <small>Fields marked with <span class="req">*</span> are editable in <em>Edit</em> mode only.</small>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Status</h2>
+      <div id="status" class="status">Ready.</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>&copy; <span id="year"></span> JaQC • All rights reserved.</small>
+  </footer>
 </body>
-</html>
