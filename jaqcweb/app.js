@@ -1,5 +1,6 @@
 
 const yearEl = document.getElementById("year");
+const btnUpdateUI = document.getElementById("btnUpdateUI");
 const btnEdit = document.getElementById("btnEdit");
 const btnSave = document.getElementById("btnSave");
 const btnCancel = document.getElementById("btnCancel");
@@ -26,9 +27,20 @@ function setStatus(msg, kind = "info") {
         (kind === "ok") ? "var(--accent)" : "var(--border)";
 }
 
+async function updateUIFiles() {
+    try {
+        const res = await fetch("/api/update_web_all");
+        if (!res.ok) throw new Error("update UI failed");
+        location.reload(true);
+    } catch (e) {
+        setStatus("could not fetch UI files", "error");
+    }
+}
+
 function setEditMode(on) {
     editMode = !!on;
     // Toggle buttons
+    btnUpdateUI.hidden= !on;
     btnEdit.hidden  =  on;
     btnSave.hidden  = !on;
     btnCancel.hidden= !on;
@@ -117,6 +129,10 @@ function cancelChanges() {
     setStatus("Changes canceled.");
 }
 
+btnUpdateUI.addEventListener("click", () => {
+    console.log('updateing UI files...');
+    updateUIFiles();
+});
 btnEdit.addEventListener("click", () => {
     console.log("editing...");
     setEditMode(true);
